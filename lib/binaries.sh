@@ -83,7 +83,7 @@ install_nodejs() {
     fail_bin_install node "$version"
   fi
 
-  local hardcodedUrl="http://172.17.0.1:8000/heroku-nodebin/node/release/linux-x64/node-v12.13.1-linux-x64.tar.gz"
+  local hardcodedUrl="http://172.17.0.1:8000/heroku-nodebin/node/release/node-v12.13.1-linux-x64.tar.gz"
   echo "Downloading and installing node from $hardcodedUrl..."
   code=$(curl "$hardcodedUrl" -L --silent --fail --retry 5 --retry-max-time 15 -o /tmp/node.tar.gz --write-out "%{http_code}")
   if [ "$code" != "200" ]; then
