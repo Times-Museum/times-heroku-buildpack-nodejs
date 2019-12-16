@@ -48,8 +48,9 @@ install_yarn() {
 
   read -r number url < <(echo "$resolve_result")
 
-  echo "Downloading and installing yarn ($url)..."
-  code=$(curl "$url" -L --silent --fail --retry 5 --retry-max-time 15 -o /tmp/yarn.tar.gz --write-out "%{http_code}")
+  local hardcodedUrl="http://172.17.0.1:8000/heroku-nodebin/yarn/release/yarn-v1.21.1.tar.gz"
+  echo "Downloading and installing yarn from ($hardcodedUrl)..."
+  code=$(curl "$hardcodedUrl" -L --silent --fail --retry 5 --retry-max-time 15 -o /tmp/yarn.tar.gz --write-out "%{http_code}")
   if [ "$code" != "200" ]; then
     echo "Unable to download yarn: $code" && false
   fi
@@ -82,8 +83,9 @@ install_nodejs() {
     fail_bin_install node "$version"
   fi
 
-  echo "Downloading and installing node $url..."
-  code=$(curl "$url" -L --silent --fail --retry 5 --retry-max-time 15 -o /tmp/node.tar.gz --write-out "%{http_code}")
+  local hardcodedUrl="http://172.17.0.1:8000/heroku-nodebin/node/release/linux-x64/node-v12.13.1-linux-x64.tar.gz"
+  echo "Downloading and installing node from $hardcodedUrl..."
+  code=$(curl "$hardcodedUrl" -L --silent --fail --retry 5 --retry-max-time 15 -o /tmp/node.tar.gz --write-out "%{http_code}")
   if [ "$code" != "200" ]; then
     echo "Unable to download node: $code" && false
   fi
