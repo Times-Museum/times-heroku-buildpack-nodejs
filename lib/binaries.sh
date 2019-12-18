@@ -48,7 +48,10 @@ install_yarn() {
 
   read -r number url < <(echo "$resolve_result")
 
-  local hardcodedUrl="http://172.17.0.1:8000/heroku-nodebin/yarn/release/yarn-v1.21.1.tar.gz"
+  # Override to hard coded version number
+  number=1.21.1
+
+  local hardcodedUrl="http://172.17.0.1:8000/heroku-nodebin/yarn/release/yarn-v${number}.tar.gz"
   echo "Downloading and installing yarn from ($hardcodedUrl)..."
   code=$(curl "$hardcodedUrl" -L --silent --fail --retry 5 --retry-max-time 15 -o /tmp/yarn.tar.gz --write-out "%{http_code}")
   if [ "$code" != "200" ]; then
@@ -79,11 +82,14 @@ install_nodejs() {
 
   read -r number url < <(echo "$resolve_result")
 
+  # Override to hard coded version number
+  number=12.13.1
+
   if [[ "$resolve_result" == "failed" ]]; then
     fail_bin_install node "$version"
   fi
 
-  local hardcodedUrl="http://172.17.0.1:8000/heroku-nodebin/node/release/node-v12.13.1-linux-x64.tar.gz"
+  local hardcodedUrl="http://172.17.0.1:8000/heroku-nodebin/node/release/node-v${number}-linux-x64.tar.gz"
   echo "Downloading and installing node from $hardcodedUrl..."
   code=$(curl "$hardcodedUrl" -L --silent --fail --retry 5 --retry-max-time 15 -o /tmp/node.tar.gz --write-out "%{http_code}")
   if [ "$code" != "200" ]; then
