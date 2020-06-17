@@ -38,16 +38,7 @@ install_yarn() {
   local dir="$1"
   local version=${2:-1.x}
   local number url code resolve_result
-
-  echo "Resolving yarn version $version..."
-  resolve_result=$(resolve yarn "$version" || echo "failed")
-
-  if [[ "$resolve_result" == "failed" ]]; then
-    fail_bin_install yarn "$version"
-  fi
-
-  read -r number url < <(echo "$resolve_result")
-
+  
   # Override to hard coded version number
   number=1.21.1
 
@@ -76,11 +67,6 @@ install_nodejs() {
 
   os=$(get_os)
   cpu=$(get_cpu)
-
-  echo "Resolving node version $version..."
-  resolve_result=$(resolve node "$version" || echo "failed")
-
-  read -r number url < <(echo "$resolve_result")
 
   # Override to hard coded version number
   number=12.13.1
